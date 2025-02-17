@@ -15,8 +15,12 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(bodyParser.json());
-app.use(auth);
+// app.use(bodyParser.json());
+
+
+app.use(bodyParser.json());  // ✅ Parse JSON
+app.use(bodyParser.urlencoded({ extended: true }));  // ✅ Parse form data
+// app.use(auth);
 
 // Routes
 app.use('/api/vendors', vendorRoutes);

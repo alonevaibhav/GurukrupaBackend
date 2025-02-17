@@ -7,12 +7,9 @@ const ProductSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
-  vendor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vendor',
-  },
+  
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
