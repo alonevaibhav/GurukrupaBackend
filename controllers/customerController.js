@@ -31,8 +31,11 @@ exports.createCustomer = async (req, res) => {
 
 // Update Customer by ID
 exports.updateCustomer = async (req, res) => {
-  const { id } = req.params;
-  const { name, contact, address } = req.body;
+  const { id, name, contact, address } = req.body;  // id comes from request body
+
+  if (!id) {
+    return res.status(400).json({ message: "Customer ID is required" });
+  }
 
   try {
     // Find and update the customer
@@ -51,4 +54,28 @@ exports.updateCustomer = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+// Delete Customer by ID
+exports.deleteCustomer = async (req, res) => {
+  const { id } = req.body;  // Extracting id from request body
+
+  if (!id) {
+    return res.status(400).json({ message: "Customer ID is required" });
+  }
+
+  try {
+    // Find and delete the customer by ID
+    const deletedCustomer = await Customer.findByIdAndDelete(id);
+
+    if (!deletedCustomer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    res.json({ message: "Customer deleted successfully", deletedCustomer });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+
 

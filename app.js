@@ -8,11 +8,21 @@ const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const auth = require('./middleware/auth');
 const errorHandler = require('./middleware/errorHandler');
+const cors = require('cors');
+
 
 const app = express();
 
 // Connect to database
 connectDB();
+
+app.use(cors());
+
+
+
+// const cors = require('cors');
+// app.use(cors());
+
 
 // Middleware
 // app.use(bodyParser.json());
@@ -23,8 +33,8 @@ app.use(bodyParser.urlencoded({ extended: true }));  // ✅ Parse form data
 // app.use(auth);
 
 // Routes
-app.use('/api/vendors', vendorRoutes);
 app.use('/api/customers', customerRoutes);
+app.use('/api/vendors', vendorRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
